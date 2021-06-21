@@ -328,6 +328,13 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         }
     }
 
+    /// The String to display when the textfield is editing and the input is not empty.
+    @IBInspectable open var selectedAttributedTitle: NSAttributedString? {
+        didSet {
+            updateControl()
+        }
+    }
+    
     /// The String to display when the textfield is not editing and the input is not empty.
     @IBInspectable open var title: String? {
         didSet {
@@ -568,8 +575,14 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
                 titleText = titleOrPlaceholder()
             }
         }
-        titleLabel.text = titleText
-        titleLabel.font = titleFont
+        
+        if selectedAttributedTitle == nil {
+            titleLabel.text = titleText
+            titleLabel.font = titleFont
+        } else {
+            titleLabel.attributedText = selectedAttributedTitle
+        }
+  
 
         errorLabel.text = errorText
         errorLabel.font = titleFont
