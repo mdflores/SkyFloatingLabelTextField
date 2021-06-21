@@ -234,6 +234,8 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
 
     // MARK: Properties
 
+    open var shouldFormatTitle: Bool = true
+    
     /**
     The formatter used before displaying content in the title label. 
     This can be the `title`, `selectedTitle` or the `errorMessage`.
@@ -295,7 +297,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     open var hasErrorMessage: Bool {
         return errorMessage != nil && errorMessage != ""
     }
-
+    
     fileprivate var _renderingInInterfaceBuilder: Bool = false
 
     /// The text content of the textfield
@@ -849,6 +851,11 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         guard let title = title ?? placeholder else {
             return nil
         }
+        
+        guard shouldFormatTitle else {
+            return title
+        }
+        
         return titleFormatter(title)
     }
 
@@ -856,6 +863,11 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         guard let title = selectedTitle ?? title ?? placeholder else {
             return nil
         }
+        
+        guard shouldFormatTitle else {
+            return title
+        }
+        
         return titleFormatter(title)
     }
 } // swiftlint:disable:this file_length
